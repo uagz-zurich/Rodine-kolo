@@ -1,74 +1,161 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Родинне Коло II - Реєстрація</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Родинне коло II — Тепла зустріч родин</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+    }
+
+    .hero {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 16px;
+    }
+
+    .hero img {
+        width: 100%;
+        border-radius: 12px;
+        display: block;
+    }
+
+    .form-section {
+        max-width: 600px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .form-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 26px;
+    }
+
+    label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 14px;
+        background: #ff7b00;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    #result {
+        margin-top: 10px;
+        font-weight: bold;
+        color: green;
+        text-align: center;
+    }
+
+    /* Floating button */
+    .floating-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #ff7b00;
+        color: white;
+        padding: 16px 22px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+</style>
 </head>
-<body class="bg-slate-100 text-slate-800">
 
-    <main class="max-w-3xl mx-auto py-8 px-4">
-        <div class="mb-8">
-            <img src="leding01.webp" alt="Родинне Коло II" class="w-full rounded-2xl shadow-xl">
-        </div>
+<body>
 
-        <section class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
-            <h2 class="text-3xl font-extrabold text-blue-900 mb-6 text-center">Реєстрація на подію</h2>
-            
-            <form id="consult-google-form" class="space-y-5">
-                <input type="hidden" id="c-date" value="05.07.2026">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="c-name" placeholder="Ім'я або Прізвище" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                    <input type="email" id="c-email" placeholder="Email" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                </div>
+<!-- Афиша -->
+<div class="hero">
+    <img src="Leding01.webp" alt="Родинне коло афіша">
+</div>
 
-                <input type="tel" id="c-phone" placeholder="Телефон" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                
-                <input type="number" id="c-kids-total" placeholder="Кількість дітей" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="c-girls" placeholder="Дівчата (вік)" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                    <input type="text" id="c-boys" placeholder="Хлопці (вік)" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
-                </div>
-                
-                <button type="submit" id="consult-submit-btn" class="w-full bg-blue-800 text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition duration-300 shadow-lg">
-                    Зареєструватися
-                </button>
-            </form>
-        </section>
-    </main>
+<!-- Форма регистрации -->
+<div id="formBlock" class="form-section">
+    <h2>Реєстрація</h2>
 
-    <script>
-        document.getElementById('consult-google-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('consult-submit-btn');
-            btn.disabled = true;
-            btn.innerText = "Відправка...";
+    <form id="regForm">
+        <label>Ім’я</label>
+        <input type="text" name="name" required>
 
-            const scriptURL = 'ВАШ_URL_СЮДА'; // Вставте сюди ваш Webhook URL
-            
-            const formData = new FormData();
-            formData.append('date', document.getElementById('c-date').value);
-            formData.append('name', document.getElementById('c-name').value);
-            formData.append('email', document.getElementById('c-email').value);
-            formData.append('phone', document.getElementById('c-phone').value);
-            formData.append('total_kids', document.getElementById('c-kids-total').value);
-            formData.append('girls', document.getElementById('c-girls').value);
-            formData.append('boys', document.getElementById('c-boys').value);
+        <label>Телефон</label>
+        <input type="tel" name="phone" required>
 
-            fetch(scriptURL, { method: 'POST', body: formData })
-            .then(() => {
-                alert("Дякуємо! Ваша реєстрація прийнята.");
-                document.getElementById('consult-google-form').reset();
-            })
-            .catch(() => alert("Помилка відправки."))
-            .finally(() => {
-                btn.disabled = false;
-                btn.innerText = "Зареєструватися";
-            });
-        });
-    </script>
+        <label>Email</label>
+        <input type="email" name="email">
+
+        <label>Кількість дітей</label>
+        <input type="number" name="kids_total" min="0">
+
+        <label>Кількість дітей (дівчина, вік)</label>
+        <textarea name="girls" placeholder="Наприклад: 1 дівчина (5 років)"></textarea>
+
+        <label>Кількість дітей (хлопець, вік)</label>
+        <textarea name="boys" placeholder="Наприклад: 1 хлопець (8 років)"></textarea>
+
+        <button type="submit">Відправити</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+
+
+<script>
+  const FORM_URL = "https://script.google.com/macros/s/AKfycbzo3pWKHw364WuShKYHcuTNd1Dllvq6olSXyIJg4urAIS8W-wmnslZEIGAsU1SdUn-s/exec";
+
+  function scrollToForm() {
+      document.getElementById("formBlock").scrollIntoView({ behavior: "smooth" });
+  }
+
+  document.getElementById("regForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    await fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    document.getElementById("result").innerText = "Дякуємо! Заявку отримано.";
+    form.reset();
+  });
+</script>
+
 </body>
 </html>
