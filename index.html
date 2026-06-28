@@ -1,65 +1,74 @@
-<section class="max-w-4xl mx-auto py-10 px-4">
-    <div class="mb-8">
-        <img src="leding01.webp" alt="Родинне Коло II" class="w-full h-auto rounded-lg shadow-lg">
-    </div>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Родинне Коло II - Реєстрація</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800">
 
-    <div class="bg-slate-50 p-6 md:p-8 rounded-xl shadow-md border border-slate-200">
-        <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">Реєстрація на подію</h2>
-        
-        <form id="consult-google-form" class="space-y-4">
-            <input type="hidden" id="c-date" value="05.07.2026">
+    <main class="max-w-3xl mx-auto py-8 px-4">
+        <div class="mb-8">
+            <img src="leding01.webp" alt="Родинне Коло II" class="w-full rounded-2xl shadow-xl">
+        </div>
+
+        <section class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200">
+            <h2 class="text-3xl font-extrabold text-blue-900 mb-6 text-center">Реєстрація на подію</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="c-name" placeholder="Ім'я або Прізвище" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
-                <input type="email" id="c-email" placeholder="Email" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
-            </div>
+            <form id="consult-google-form" class="space-y-5">
+                <input type="hidden" id="c-date" value="05.07.2026">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="c-name" placeholder="Ім'я та Прізвище" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                    <input type="email" id="c-email" placeholder="Email" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                </div>
 
-            <input type="tel" id="c-phone" placeholder="Телефон" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
+                <input type="tel" id="c-phone" placeholder="Телефон" required class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                
+                <input type="number" id="c-kids-total" placeholder="Кількість дітей" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="c-girls" placeholder="Дівчата (вік)" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                    <input type="text" id="c-boys" placeholder="Хлопці (вік)" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-800 outline-none">
+                </div>
+                
+                <button type="submit" id="consult-submit-btn" class="w-full bg-blue-800 text-white font-bold py-4 rounded-xl hover:bg-blue-900 transition duration-300 shadow-lg">
+                    Зареєструватися
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('consult-google-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('consult-submit-btn');
+            btn.disabled = true;
+            btn.innerText = "Відправка...";
+
+            const scriptURL = 'ВАШ_URL_СЮДА'; // Вставте сюди ваш Webhook URL
             
-            <input type="number" id="c-kids-total" placeholder="Кількість дітей" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="c-girls" placeholder="Кількість дітей (дівчина, вік)" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
-                <input type="text" id="c-boys" placeholder="Кількість дітей (хлопець, вік)" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-800 outline-none">
-            </div>
-            
-            <button type="submit" id="consult-submit-btn" class="w-full bg-blue-800 text-white font-bold py-3 rounded-lg hover:bg-blue-900 transition duration-300">
-                Зареєструватися
-            </button>
-        </form>
-    </div>
-</section>
+            const formData = new FormData();
+            formData.append('date', document.getElementById('c-date').value);
+            formData.append('name', document.getElementById('c-name').value);
+            formData.append('email', document.getElementById('c-email').value);
+            formData.append('phone', document.getElementById('c-phone').value);
+            formData.append('total_kids', document.getElementById('c-kids-total').value);
+            formData.append('girls', document.getElementById('c-girls').value);
+            formData.append('boys', document.getElementById('c-boys').value);
 
-<script>
-document.getElementById('consult-google-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var btn = document.getElementById('consult-submit-btn');
-    btn.disabled = true;
-    btn.innerText = "Відправка...";
-
-    // ВАЖНО: Вставьте сюда ваш Webhook URL из Make.com или Google Apps Script
-    var scriptURL = 'ВАШ_URL_СЮДА'; 
-    
-    var formData = new FormData();
-    formData.append('date', document.getElementById('c-date').value);
-    formData.append('name', document.getElementById('c-name').value);
-    formData.append('email', document.getElementById('c-email').value);
-    formData.append('phone', document.getElementById('c-phone').value);
-    formData.append('total_kids', document.getElementById('c-kids-total').value);
-    formData.append('girls', document.getElementById('c-girls').value);
-    formData.append('boys', document.getElementById('c-boys').value);
-
-    fetch(scriptURL, { method: 'POST', body: formData })
-    .then(function() {
-        alert("Дякуємо! Ваша реєстрація прийнята.");
-        document.getElementById('consult-google-form').reset();
-    })
-    .catch(function() {
-        alert("Помилка відправки. Перевірте підключення.");
-    })
-    .finally(function() {
-        btn.disabled = false;
-        btn.innerText = "Зареєструватися";
-    });
-});
-</script>
+            fetch(scriptURL, { method: 'POST', body: formData })
+            .then(() => {
+                alert("Дякуємо! Ваша реєстрація прийнята.");
+                document.getElementById('consult-google-form').reset();
+            })
+            .catch(() => alert("Помилка відправки."))
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerText = "Зареєструватися";
+            });
+        });
+    </script>
+</body>
+</html>
